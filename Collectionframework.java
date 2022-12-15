@@ -39,8 +39,6 @@ import java.util.*;
          Solider = new Solider[20]; 
          Quater = new Quater[4]; 
          ed = new Vector<Soledier_Quater>(); 
-         Boolean end_count = true;
-         int selection;
          
          for (int i = 0; i < _Solider.length; i++) {
              Solider[i] = new Solider(Integer.parseInt(_Solider[i][0]), _Solider[i][1], Integer.parseInt(_Solider[i][2]), Integer.parseInt(_Solider[i][3]) , _Solider[i][4] , _Solider[i][5]);
@@ -49,20 +47,19 @@ import java.util.*;
          for (int i = 0; i < _Quater.length; i++) {
                  Quater[i] = new Quater(Integer.parseInt(_Quater[i][0]), Integer.parseInt(_Quater[i][1]), Integer.parseInt(_Quater[i][2]));			
          }
+         //getAll : 매개변수로 보낸 객체의 정보를 출력하는 메서드
          getAll(Solider);
          getAll(Quater);
-         
-        while(end_count){
-            System.out.println("실행할 수행을 골라주세요 : ");
-        }
-
+        //getOne_number : 주어진 번호를 가진 객체의 정보를 출력하는 메서드         
+         getOne_number(3);
+         //getHoghangiRank(int select_rank) : 정해진 계급의 혹한기 참여수를 구하는 메서드
+         System.out.println("혹한기를 2번 하는 상병은 " + getHoghangiRank(3) + "명입니다.");
      }	
     
      
      public static void main(String[] args) {
 
          new Collectionframework();
-        getOne_number(1);
      }
 
      private void getAll(Object[] objs) {
@@ -70,7 +67,7 @@ import java.util.*;
 			System.out.println( objs[i].toString() );
 		}
 	}
-
+    
     private void getOne_number(int number){
         for(int i = 0; i < Solider.length; i++){
             if(Solider[i].number == number){
@@ -78,5 +75,18 @@ import java.util.*;
             }
         }
     }
- 
+    //혹한기하는 계급을 구하는 클래스
+    private int getHoghangiRank(int select_rank) {
+        int temp = 0;
+		for(int i=0; i < Solider.length; i++) {
+	        if(Solider[i].rank == select_rank){
+                for(int j = 0 ; j < Quater.length; j++){
+                    if(Solider[i].quater == Quater[j].quater){
+                        temp += Quater[j].hoghangi;
+                    }
+                }
+            }
+	    }
+        return temp;
+	} 
  }
